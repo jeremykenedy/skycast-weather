@@ -33,6 +33,57 @@ public final class WeatherTest {
   }
 
   public static void main(String[] args) throws Exception {
+    SkyHistory history = new SkyHistory();
+    check(history.blend(1, .5f, 0) == 0, "first cloud frame must not blend undefined history");
+    boolean alternating = true, bounded = true, phases = true;
+    for (int frame = 0; frame < 40; frame++) {
+      alternating &=
+          history.writeIndex() == frame % 2 && history.readIndex() != history.writeIndex();
+      phases &= history.phase() == frame % 16;
+      float weight = history.blend(1, .5f, 0);
+      bounded &= weight >= 0 && weight <= .875f;
+      history.advance();
+    }
+    check(
+        alternating && phases && bounded,
+        "history ping-pong avoids texture feedback and caps temporal persistence");
+    check(history.blend(0, .5f, 0) == 0, "day-night change discards old lighting history");
+    history.advance();
+    check(history.blend(0, .8f, 0) == 0, "cover change discards old shapes");
+    history.advance();
+    check(history.blend(0, .8f, 1) == 0, "rain lighting change discards old history");
+    history.advance();
+    history.reset();
+    check(
+        history.writeIndex() == 0 && history.phase() == 0 && history.blend(0, .8f, 1) == 0,
+        "new surface cannot retain a previous context's history");
+    byte[] atlas = SkyNoise.atlas();
+    check(
+        atlas.length == SkyNoise.WIDTH * SkyNoise.HEIGHT * 2
+            && java.util.Arrays.equals(atlas, SkyNoise.atlas()),
+        "stable bounded cloud volume atlas");
+    int minimum = 255, maximum = 0;
+    for (byte density : atlas) {
+      minimum = Math.min(minimum, density & 255);
+      maximum = Math.max(maximum, density & 255);
+    }
+    check(minimum == 0 && maximum == 255, "cloud volume contains real density variation");
+    boolean continuous = true, borders = true;
+    for (int z = 0; z < 32; z++)
+      for (int y = 0; y < 34; y++)
+        for (int x = 0; x < 34; x++) {
+          int origin = (((z / 8) * 34 + y) * SkyNoise.WIDTH + (z % 8) * 34 + x) * 2;
+          int next =
+              ((((z + 1) % 32 / 8) * 34 + y) * SkyNoise.WIDTH + ((z + 1) % 32 % 8) * 34 + x) * 2;
+          continuous &= atlas[origin + 1] == atlas[next];
+          int wrapX = x == 0 ? 32 : x == 33 ? 1 : x, wrapY = y == 0 ? 32 : y == 33 ? 1 : y;
+          int wrapped = (((z / 8) * 34 + wrapY) * SkyNoise.WIDTH + (z % 8) * 34 + wrapX) * 2;
+          borders &= atlas[origin] == atlas[wrapped] && atlas[origin + 1] == atlas[wrapped + 1];
+        }
+    check(
+        continuous,
+        "packed adjacent Z densities remain continuous across tile and volume boundaries");
+    check(borders, "filtered tile borders wrap without atlas seams");
     WeatherText metric = new WeatherText(parse(sample(), 3), false, 1800000000000L, "", Locale.US);
     check(
         metric.temperature.equals("20°C")

@@ -52,6 +52,7 @@ public final class SettingsActivity extends Activity {
     updateLocation();
     content.addView(location);
     Button clear = new Button(this);
+    clear.setId(View.generateViewId());
     clear.setText("Clear saved location and forecast");
     clear.setOnClickListener(
         v -> {
@@ -60,13 +61,31 @@ public final class SettingsActivity extends Activity {
         });
     content.addView(clear);
     EditText city = new EditText(this);
+    city.setId(View.generateViewId());
+    city.setFocusable(true);
+    city.setFocusableInTouchMode(true);
+    city.setSelectAllOnFocus(true);
     city.setSingleLine(true);
     city.setHint("Search city or town");
     content.addView(city);
     Button find = new Button(this);
+    find.setId(View.generateViewId());
     find.setText("Find location");
     find.setOnClickListener(v -> search(city.getText().toString()));
     content.addView(find);
+    clear.setNextFocusDownId(city.getId());
+    clear.setNextFocusForwardId(city.getId());
+    city.setNextFocusUpId(clear.getId());
+    city.setNextFocusDownId(find.getId());
+    city.setNextFocusForwardId(find.getId());
+    find.setNextFocusUpId(city.getId());
+    city.setImeOptions(android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH);
+    city.setOnEditorActionListener(
+        (view, action, event) -> {
+          if (action != android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH) return false;
+          search(city.getText().toString());
+          return true;
+        });
     status = new TextView(this);
     content.addView(status);
     choice(
@@ -156,6 +175,10 @@ public final class SettingsActivity extends Activity {
   }
 
   private void search(String query) {
+    View focused = getCurrentFocus();
+    if (focused != null)
+      ((android.view.inputmethod.InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+          .hideSoftInputFromWindow(focused.getWindowToken(), 0);
     if (search != null) search.close();
     WeatherClient request = new WeatherClient();
     search = request;
