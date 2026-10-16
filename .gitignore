@@ -1,0 +1,8 @@
+build/
+coverage/
+*.jks
+*.pass
+__pycache__/
+.DS_Store
+
+.coverage

@@ -1,0 +1,18 @@
+Skycast Weather
+Copyright 2026 Jeremy Kenedy
+
+Build and installer scaffolding adapted from Prism Clock by Jeremy Kenedy,
+Apache License 2.0. Modified for the Skycast Weather package.
+
+Weather content is supplied by Open-Meteo, https://open-meteo.com/,
+under Creative Commons Attribution 4.0. Forecast presentation converts units,
+selects the requested day range, and omits unavailable fields. The free API
+endpoint is restricted to noncommercial use under its service terms.
+https://open-meteo.com/en/terms
+https://creativecommons.org/licenses/by/4.0/
+
+City search uses Open-Meteo's geocoding API, with location data based on
+GeoNames, https://www.geonames.org/. Provider attribution and current terms:
+https://open-meteo.com/en/docs/geocoding-api
+
+The source-code license does not remove the content provider's conditions.

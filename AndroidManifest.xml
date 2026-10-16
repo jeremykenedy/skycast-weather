@@ -1,0 +1,17 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.jeremykenedy.skycastweather">
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-feature android:name="android.software.leanback" android:required="false" />
+  <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+  <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+  <application android:label="Skycast Weather" android:icon="@drawable/icon" android:theme="@android:style/Theme.Material.NoActionBar" android:allowBackup="false" android:usesCleartextTraffic="false" android:supportsRtl="true">
+    <activity android:name=".SettingsActivity" android:exported="true">
+      <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LEANBACK_LAUNCHER"/></intent-filter>
+    </activity>
+    <activity android:name=".PreviewActivity" android:exported="false" android:screenOrientation="landscape" />
+    <service android:name=".WeatherDreamService" android:label="Skycast Weather" android:exported="true" android:permission="android.permission.BIND_DREAM_SERVICE">
+      <intent-filter><action android:name="android.service.dreams.DreamService"/></intent-filter>
+      <meta-data android:name="android.service.dream" android:resource="@xml/dream"/>
+    </service>
+    <provider android:name=".SettingsProvider" android:authorities="com.jeremykenedy.skycastweather.settings" android:exported="true" />
+  </application>
+</manifest>

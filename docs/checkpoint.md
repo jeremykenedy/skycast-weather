@@ -1,0 +1,15 @@
+# Skycast Weather checkpoint
+
+Unpublished source work for R027. Workspace /Users/jeremykenedy/sites/skycast-weather, branch create-live-weather-screensaver, package com.jeremykenedy.skycastweather. No public repository, release, native screenshot or integration exists yet. No quality/support/privacy acceptance is claimed.
+
+Source priorities: validated actual forecast parsing, bounded HTTPS content requests, cache/offline age handling, user-selected location, units/day-count controls, genuinely animated volumetric sky. Native design gate must precede publication. Open-Meteo primary docs and terms reviewed; free API noncommercial restrictions and provider-side coordinate/IP logging require accurate documentation. No app telemetry or location permissions.
+
+Native source now builds: proper DreamService, Preview activity, remote settings, city search, settings provider, private AtomicFile cache, native-resolution weather overlay and bounded cloud-volume shader surface. Only INTERNET is requested. No user location is guessed, and missing fields remain unavailable. Data age uses original model-valid and fetch times. Content requests are cancelled on scene stop; only an attached active scene schedules refreshes every 15 minutes. No background polling or update checks.
+
+Current local candidate: build/skycast-weather.apk, SHA-256 17540e2fd7800bb83d58f5e72810247157a075f821cb4d23514577e46fc9ec42. Version 1.0.0/code 1. Unique release signer SHA-256 f40d38dbe5dad4d4f05e51f3fb9fee20227762252ed31fd53d082879d08d9461; key and password remain outside Git under the protected Android key directory.
+
+Host content, transport, cache and settings logic: 130 observable checks; 168/168 lines and 167/167 branches covered. Host-only pinned org.json is not bundled in the APK. Android storage, lifecycle, UI and graphics wrappers require native checks and are outside this explicit host report. Installer: 25 tests, 229 statements and 80 branches, all 100%. Formatting, Ruff and ShellCheck pass. Signed build and package/permission/signer inspection pass. A separate host request against explicit public New York coordinates successfully parsed the real Open-Meteo response; this does not prove Android networking or renderer behavior.
+
+Next: fresh root-coordinated first native scene gate, then correct visual defects before repository publication. Verify actual city search, data response, dated offline cache, units/day ranges, invalid provider writes, pause/resume cancellation, D-pad/Back/Home, bound Dream and unchanged secure settings. Capture moving native sky and performance before accepting the cloud shader. No banner, screenshots, small app preview, complete docs, CI, public repository, final installer/device gate or ecosystem entries exist yet. The final build will change after these checks.
+
+Prism Clock source is public with its initial native gates and all eight public banner variants reviewed. Full settings/pacing, physical-device, release and integrations remain pending. Shared emulator owner file is authoritative. No physical TV mutations authorized while held.
