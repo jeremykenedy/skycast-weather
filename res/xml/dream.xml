@@ -1,1 +1,1 @@
-<dream xmlns:android="http://schemas.android.com/apk/res/android" android:settingsActivity="com.jeremykenedy.skycastweather.SettingsActivity" />
+<dream xmlns:android="http://schemas.android.com/apk/res/android" android:previewImage="@drawable/screensaver_preview" android:settingsActivity="com.jeremykenedy.skycastweather.SettingsActivity" />

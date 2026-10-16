@@ -1,0 +1,39 @@
+name: Build and coverage
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+      - name: Install Android build tools
+        run: |
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0"
+      - name: Enforce owned host logic coverage
+        run: bash scripts/test-coverage.sh
+      - name: Enforce installer coverage
+        run: bash scripts/test-python-coverage.sh
+      - name: Verify style
+        run: bash scripts/check-style.sh
+      - name: Build unsigned review APK
+        run: bash build.sh --unsigned
+      - name: Verify manifest and content-only permission boundary
+        run: python3 scripts/check-artifact.py build/skycast-weather-unsigned.apk
+      - name: Verify documentation and artwork links
+        run: python3 scripts/check-docs.py
+      - name: Check whitespace
+        run: git diff --check

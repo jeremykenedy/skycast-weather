@@ -1,0 +1,22 @@
+name: Report a problem
+description: Describe a reproducible rendering, settings or device problem.
+body:
+  - type: input
+    id: device
+    attributes:
+      label: Device and OS/API
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: App version and display resolution
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: What happened and how to reproduce it
+      description: Include relevant settings and expected behavior. Do not post credentials or private device information.
+    validations:
+      required: true

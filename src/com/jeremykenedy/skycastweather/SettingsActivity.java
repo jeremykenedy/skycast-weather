@@ -124,12 +124,16 @@ public final class SettingsActivity extends Activity {
                 .setMessage(
                     "Weather: Open-Meteo, https://open-meteo.com/\n"
                         + "Forecast data: CC BY 4.0. City search: GeoNames via Open-Meteo, CC BY"
-                        + " 4.0.\n\n"
+                        + " 4.0.\n"
+                        + "https://creativecommons.org/licenses/by/4.0/\n"
+                        + "Display rounds values, converts units and selects the requested"
+                        + " dates.\n\n"
                         + "Data is model derived. Provider terms:"
                         + " https://open-meteo.com/en/terms\n\n"
                         + "Skycast Weather source code: Apache License 2.0. Copyright 2026 Jeremy"
                         + " Kenedy.\n"
-                        + "https://github.com/jeremykenedy/skycast-weather")
+                        + "https://github.com/jeremykenedy/skycast-weather\n\n"
+                        + licenseText())
                 .setPositiveButton("Close", null)
                 .show());
     content.addView(credits);
@@ -141,6 +145,18 @@ public final class SettingsActivity extends Activity {
   private void updateLocation() {
     WeatherLocation selected = store.location();
     location.setText(selected == null ? "No location selected" : "Location: " + selected.name);
+  }
+
+  private String licenseText() {
+    try (java.io.InputStream input = getResources().openRawResource(R.raw.apache_license);
+        java.io.ByteArrayOutputStream output = new java.io.ByteArrayOutputStream()) {
+      byte[] bytes = new byte[4096];
+      int length;
+      while ((length = input.read(bytes)) != -1) output.write(bytes, 0, length);
+      return output.toString("UTF-8");
+    } catch (java.io.IOException unavailable) {
+      return "License text unavailable. A full copy is included in the source repository.";
+    }
   }
 
   private void choice(

@@ -40,4 +40,17 @@ for setting in ("allowBackup", "usesCleartextTraffic"):
 with zipfile.ZipFile(apk) as archive:
     if any(name.endswith((".jar", ".so")) for name in archive.namelist()):
         raise SystemExit("Unexpected bundled runtime library")
+    root = Path(__file__).resolve().parent.parent
+    for resource, source in (
+        ("res/raw/apache_license.txt", root / "LICENSE"),
+        ("res/drawable/screensaver_preview.jpg", root / "res/drawable/screensaver_preview.jpg"),
+        ("res/drawable/banner.jpg", root / "res/drawable/banner.jpg"),
+    ):
+        if archive.read(resource) != source.read_bytes():
+            raise SystemExit("Bundled license/preview differs from verified source: " + resource)
+dream = subprocess.check_output(
+    [str(aapt), "dump", "xmltree", str(apk), "res/xml/dream.xml"], text=True
+)
+if "android:previewImage" not in dream or "android:settingsActivity" not in dream:
+    raise SystemExit("Dream metadata must include the real preview and settings activity")
 print("Verified package, SDK, Dream/provider, INTERNET-only permissions and local storage policy.")

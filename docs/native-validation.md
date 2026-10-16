@@ -1,6 +1,6 @@
 # Pending native gates
 
-Two initial Google TV API34 native gates rendered genuine New York and London forecasts at native 1920x1080 view resolution. Current scene captures and three frames from its six-second motion recording were opened and inspected; parent visual acceptance remains pending. The cloud render surface is bounded to 960px width; text remains at the native view resolution. Neither a 4K display mode nor a captured movie frame rate proves the render surface or application FPS. See checkpoint.md for exact candidate/capture provenance and remaining gates below.
+Two initial Google TV API 34 native gates rendered genuine New York and London forecasts at native 1920x1080 view resolution. Current scene captures and three frames from its six-second motion recording were opened and inspected; parent visual acceptance remains pending. The cloud render surface is bounded to 960px width; text remains at the native view resolution. Neither a 4K display mode nor a captured movie frame rate proves the render surface or application FPS. See checkpoint.md for exact candidate/capture provenance and remaining gates below.
 
 Use only a fresh root-coordinated emulator lease. Read /tmp/screensaver-emulator-5580-owner.json before mutations. No physical TV installation is authorized while its external workflow is held.
 
