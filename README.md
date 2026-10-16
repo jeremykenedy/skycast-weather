@@ -147,6 +147,7 @@ Actual Google TV API 34 native captures at 1920x1080. Day/night use real provide
   <tr>
     <td><img src="art/screenshots/weather-settings-api34.png" alt="Native weather settings before a location is chosen">Settings</td>
     <td><img src="art/screenshots/weather-settings-updated-api34.png" alt="Resumed native settings showing selected London, imperial units and seven days">Updated settings</td>
+    <td><img src="art/screenshots/weather-credits-api34.png" alt="Native weather attribution and offline Apache License dialog">Sources and license</td>
   </tr>
 </table>
 
