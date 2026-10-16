@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import java.util.ArrayList;
 import java.util.List;
 
 public final class SettingsActivity extends Activity {
@@ -22,6 +23,7 @@ public final class SettingsActivity extends Activity {
   private TextView location, status;
   private WeatherClient search;
   private boolean alive;
+  private final List<Runnable> refreshSettings = new ArrayList<>();
 
   @Override
   public void onCreate(Bundle state) {
@@ -49,6 +51,14 @@ public final class SettingsActivity extends Activity {
     location = new TextView(this);
     updateLocation();
     content.addView(location);
+    Button clear = new Button(this);
+    clear.setText("Clear saved location and forecast");
+    clear.setOnClickListener(
+        v -> {
+          store.clearLocation();
+          updateLocation();
+        });
+    content.addView(clear);
     EditText city = new EditText(this);
     city.setSingleLine(true);
     city.setHint("Search city or town");
@@ -124,8 +134,13 @@ public final class SettingsActivity extends Activity {
         new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, titles);
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     spinner.setAdapter(adapter);
-    for (int i = 0; i < values.length; i++)
-      if (values[i].equals(store.choice(key))) spinner.setSelection(i);
+    Runnable refresh =
+        () -> {
+          for (int i = 0; i < values.length; i++)
+            if (values[i].equals(store.choice(key))) spinner.setSelection(i);
+        };
+    refresh.run();
+    refreshSettings.add(refresh);
     spinner.setOnItemSelectedListener(
         new android.widget.AdapterView.OnItemSelectedListener() {
           @Override
@@ -185,6 +200,13 @@ public final class SettingsActivity extends Activity {
             },
             "weather-city-search")
         .start();
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    updateLocation();
+    for (Runnable refresh : refreshSettings) refresh.run();
   }
 
   @Override

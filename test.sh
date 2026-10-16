@@ -12,6 +12,7 @@ printf '%s  %s\n' 3ea61b2a06e31edf1c91134fe9106b0ebb16628be169f3db75bc7a2b06b457
 javac -cp "$TOOLS/json-host.jar" -d "$ROOT/build/host-classes" \
   "$ROOT/src/com/jeremykenedy/skycastweather/WeatherOptions.java" \
   "$ROOT/src/com/jeremykenedy/skycastweather/WeatherCache.java" \
+  "$ROOT/src/com/jeremykenedy/skycastweather/WeatherText.java" \
   "$ROOT/src/com/jeremykenedy/skycastweather/WeatherSnapshot.java" \
   "$ROOT/src/com/jeremykenedy/skycastweather/WeatherLocation.java" \
   "$ROOT/src/com/jeremykenedy/skycastweather/WeatherClient.java"

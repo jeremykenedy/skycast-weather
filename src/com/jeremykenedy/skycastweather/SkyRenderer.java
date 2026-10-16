@@ -43,7 +43,7 @@ final class SkyRenderer implements GLSurfaceView.Renderer {
           + " d=density(p);float shadow=exp(-density(p+light*.9)*1.8);float"
           + " alpha=1.-exp(-d*stepSize*1.8);vec3"
           + " lit=mix(vec3(.18,.23,.31),vec3(.96,.96,.92),shadow);"
-          + "lit=mix(lit*.22,lit,sun);lit=mix(lit,lit*.68,wet);"
+          + "lit=mix(lit*vec3(.26,.33,.46),lit,sun);lit=mix(lit,lit*.68,wet);"
           + "col+=trans*alpha*lit;trans*=1.-alpha;if(trans<.015)break;}vec3"
           + " result=col+sky*trans;result=pow(max(result,vec3(0.)),vec3(.92));"
           + "gl_FragColor=vec4(result,1.);}";

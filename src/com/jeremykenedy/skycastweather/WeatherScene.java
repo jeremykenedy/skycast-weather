@@ -13,10 +13,7 @@ import android.os.Looper;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.FrameLayout;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
 
 final class WeatherScene extends FrameLayout {
   private final Handler handler = new Handler(Looper.getMainLooper());
@@ -183,9 +180,30 @@ final class WeatherScene extends FrameLayout {
 
   private final class Overlay extends View {
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Shader vertical, horizontal;
+    private WeatherSnapshot formattedSnapshot;
+    private WeatherText formatted;
+    private long formattedMinute;
+    private String formattedStatus = "";
 
     Overlay(Context context) {
       super(context);
+      paint.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
+    }
+
+    @Override
+    protected void onSizeChanged(int width, int height, int oldWidth, int oldHeight) {
+      vertical =
+          new LinearGradient(
+              0,
+              0,
+              0,
+              height,
+              new int[] {0x10050912, 0x20050912, 0xb0050912},
+              null,
+              Shader.TileMode.CLAMP);
+      horizontal =
+          new LinearGradient(0, 0, width, 0, 0x65050912, 0x00050912, Shader.TileMode.CLAMP);
     }
 
     @Override
@@ -193,23 +211,18 @@ final class WeatherScene extends FrameLayout {
       float width = getWidth(),
           height = getHeight(),
           scale = Math.min(width / 1920f, height / 1080f);
+      paint.clearShadowLayer();
+      paint.setShader(vertical);
+      canvas.drawRect(0, 0, width, height, paint);
+      paint.setShader(horizontal);
+      canvas.drawRect(0, 0, width, height, paint);
+      paint.setShader(null);
       canvas.save();
       canvas.translate(
           width * .5f + (float) Math.sin(elapsed * .012f) * width * .012f,
           height * .5f + (float) Math.sin(elapsed * .009f) * height * .015f);
       canvas.scale(scale, scale);
-      paint.setShader(
-          new LinearGradient(
-              0,
-              -440,
-              0,
-              450,
-              new int[] {0x20050912, 0x90050912, 0xc0050912},
-              null,
-              Shader.TileMode.CLAMP));
-      canvas.drawRoundRect(-835, -410, 835, 420, 36, 36, paint);
-      paint.setShader(null);
-      paint.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
+      paint.setShadowLayer(2, 0, 1, 0x80000000);
       text(
           canvas, location == null ? "Skycast Weather" : location.name, -760, -315, 36, 0xe8ffffff);
       if (snapshot == null) {
@@ -217,71 +230,32 @@ final class WeatherScene extends FrameLayout {
         if (location == null)
           text(canvas, "Choose a city in weather settings", -760, -40, 30, 0xcaffffff);
       } else {
-        text(canvas, temperature(snapshot.temperatureC), -760, -110, 148, Color.WHITE);
-        text(canvas, WeatherSnapshot.condition(snapshot.code), -750, -25, 44, Color.WHITE);
-        String wind =
-            value(WeatherSnapshot.wind(snapshot.windKmh, imperial)) + (imperial ? " mph" : " km/h");
-        text(
-            canvas,
-            "Feels like "
-                + temperature(snapshot.apparentC)
-                + "    Wind "
-                + wind
-                + "    Humidity "
-                + value(snapshot.humidity)
-                + "%",
-            -748,
-            35,
-            27,
-            0xd8ffffff);
-        TimeZone zone = TimeZone.getTimeZone(snapshot.timezone);
-        SimpleDateFormat valid = new SimpleDateFormat("HH:mm", Locale.getDefault());
-        valid.setTimeZone(zone);
-        String age =
-            "Valid "
-                + valid.format(new Date(snapshot.validSeconds * 1000))
-                + " · "
-                + (snapshot.ageMillis(System.currentTimeMillis()) / 60000)
-                + " min old";
-        if (snapshot.stale(System.currentTimeMillis())) age += " · Stale";
-        if (!status.isEmpty()) age += " · " + status;
-        text(canvas, age, -748, 90, 24, 0xbfffffff);
-        int count = snapshot.days.size();
+        long now = System.currentTimeMillis();
+        long minute = now / 60000;
+        if (formattedSnapshot != snapshot
+            || minute != formattedMinute
+            || !formattedStatus.equals(status)) {
+          formatted = new WeatherText(snapshot, imperial, now, status, Locale.getDefault());
+          formattedSnapshot = snapshot;
+          formattedMinute = minute;
+          formattedStatus = status;
+        }
+        text(canvas, formatted.temperature, -760, -110, 148, Color.WHITE);
+        text(canvas, formatted.condition, -750, -25, 44, Color.WHITE);
+        text(canvas, formatted.summary, -748, 35, 27, 0xd8ffffff);
+        text(canvas, formatted.age, -748, 90, 24, 0xbfffffff);
+        int count = formatted.dates.length;
         float step = 1510f / Math.max(1, count);
-        SimpleDateFormat date = new SimpleDateFormat("EEE d", Locale.getDefault());
-        date.setTimeZone(zone);
         for (int i = 0; i < count; i++) {
-          WeatherSnapshot.Day day = snapshot.days.get(i);
           float x = -750 + i * step;
-          text(canvas, date.format(new Date(day.epochSeconds * 1000)), x, 205, 28, Color.WHITE);
-          text(
-              canvas,
-              temperature(day.highC) + " / " + temperature(day.lowC),
-              x,
-              260,
-              count > 5 ? 27 : 34,
-              Color.WHITE);
-          text(canvas, shortCondition(day.code), x, 304, count > 5 ? 19 : 24, 0xd8ffffff);
-          text(canvas, "Rain " + value(day.rainPercent) + "%", x, 345, 22, 0xbfffffff);
+          text(canvas, formatted.dates[i], x, 205, 28, Color.WHITE);
+          text(canvas, formatted.ranges[i], x, 260, count > 5 ? 27 : 34, Color.WHITE);
+          text(canvas, formatted.conditions[i], x, 304, count > 5 ? 19 : 24, 0xd8ffffff);
+          text(canvas, formatted.rain[i], x, 345, 22, 0xbfffffff);
         }
       }
       text(canvas, "Open-Meteo · Model forecast", -748, 385, 18, 0x9fffffff);
       canvas.restore();
-    }
-
-    private String shortCondition(int code) {
-      String condition = WeatherSnapshot.condition(code);
-      return condition.equals("Conditions unavailable")
-          ? "Unavailable"
-          : condition.equals("Thunderstorms with hail") ? "Storms with hail" : condition;
-    }
-
-    private String value(double number) {
-      return Double.isNaN(number) ? "--" : String.format(Locale.getDefault(), "%.0f", number);
-    }
-
-    private String temperature(double celsius) {
-      return value(WeatherSnapshot.temperature(celsius, imperial)) + "°";
     }
 
     private void text(Canvas canvas, String value, float x, float y, float size, int color) {

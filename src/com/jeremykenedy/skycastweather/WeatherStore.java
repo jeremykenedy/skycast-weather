@@ -36,6 +36,11 @@ final class WeatherStore {
         .apply();
   }
 
+  void clearLocation() {
+    preferences.edit().remove("location").remove("latitude").remove("longitude").apply();
+    cache.delete();
+  }
+
   String choice(String key) {
     return preferences.getString(key, WeatherOptions.fallback(key));
   }

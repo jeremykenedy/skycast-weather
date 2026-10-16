@@ -33,6 +33,42 @@ public final class WeatherTest {
   }
 
   public static void main(String[] args) throws Exception {
+    WeatherText metric = new WeatherText(parse(sample(), 3), false, 1800000000000L, "", Locale.US);
+    check(
+        metric.temperature.equals("20°C")
+            && metric.summary.contains("16 km/h")
+            && metric.age.endsWith("0 min old"),
+        "metric labels and original valid age");
+    check(
+        metric.dates.length == 2
+            && metric.ranges[0].equals("22° / 10°")
+            && metric.conditions[1].equals("Rain"),
+        "partial forecast labels match actual days");
+    WeatherText imperial =
+        new WeatherText(parse(sample(), 3), true, 1800003600000L, "Cached forecast", Locale.US);
+    check(
+        imperial.temperature.equals("68°F")
+            && imperial.summary.contains("10 mph")
+            && imperial.age.endsWith("Stale · Cached forecast"),
+        "imperial content and honest stale cache label");
+    JSONObject absent = sample();
+    absent.getJSONObject("current").remove("temperature_2m");
+    absent.getJSONObject("daily").put("weather_code", new JSONArray().put(96).put(-1));
+    absent.getJSONObject("daily").remove("temperature_2m_max");
+    WeatherText unavailable =
+        new WeatherText(parse(absent, 3), false, 1800000000000L, "", Locale.US);
+    check(
+        unavailable.temperature.equals("--°C")
+            && unavailable.ranges[0].startsWith("--°")
+            && unavailable.conditions[0].equals("Storms with hail")
+            && unavailable.conditions[1].equals("Unavailable"),
+        "missing fields are unavailable rather than invented zero");
+    JSONObject emptyDays = sample();
+    emptyDays.getJSONObject("daily").put("time", new JSONArray());
+    check(
+        new WeatherText(parse(emptyDays, 3), false, 1800000000000L, "", Locale.US).dates.length
+            == 0,
+        "no fabricated days when provider has no forecast");
     WeatherLocation cachedCity = new WeatherLocation("New York", 40.7128, -74.006);
     String cached = WeatherCache.encode(cachedCity, sample().toString(), 3, 1800000000000L);
     WeatherSnapshot restored = WeatherCache.decode(cached, cachedCity, 3);

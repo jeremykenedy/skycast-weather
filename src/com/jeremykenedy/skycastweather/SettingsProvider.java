@@ -40,6 +40,12 @@ public final class SettingsProvider extends ContentProvider {
   public int update(Uri uri, ContentValues values, String selection, String[] args) {
     if (!"/settings".equals(uri.getPath()) || values == null || values.size() == 0)
       throw new IllegalArgumentException("Use /settings with supported values");
+    if (values.containsKey("clear_location")) {
+      if (values.size() != 1 || !Boolean.TRUE.equals(values.getAsBoolean("clear_location")))
+        throw new IllegalArgumentException("Use clear_location=true by itself");
+      store.clearLocation();
+      return 1;
+    }
     boolean hasLocation =
         values.containsKey("location_name")
             || values.containsKey("latitude")
