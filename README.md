@@ -6,6 +6,7 @@
 <p align="center">A native weather screensaver with live forecasts and a continuously moving volumetric sky.</p>
 
 <p align="center">
+  <a href="https://github.com/jeremykenedy/skycast-weather/actions/workflows/ci.yml"><img src="https://github.com/jeremykenedy/skycast-weather/actions/workflows/ci.yml/badge.svg" alt="Build and coverage"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache--2.0-blue.svg" alt="Apache-2.0 license"></a>
 </p>
 <p align="center">
