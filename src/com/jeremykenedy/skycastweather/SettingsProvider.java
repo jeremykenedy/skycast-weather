@@ -22,13 +22,14 @@ public final class SettingsProvider extends ContentProvider {
       cursor.addRow(new Object[] {"units", "metric,imperial"});
       cursor.addRow(new Object[] {"days", "1,3,5,7"});
       cursor.addRow(new Object[] {"motion", "gentle,flowing"});
+      cursor.addRow(new Object[] {"show_weather", "true,false"});
       cursor.addRow(
           new Object[] {
             "location",
             "Update location_name,latitude,longitude together; choose explicit coordinates"
           });
     } else if ("/settings".equals(uri.getPath())) {
-      for (String key : new String[] {"units", "days", "motion"})
+      for (String key : new String[] {"units", "days", "motion", "show_weather"})
         cursor.addRow(new Object[] {key, store.choice(key)});
       WeatherLocation location = store.location();
       cursor.addRow(new Object[] {"location", location == null ? "" : location.name});
@@ -69,7 +70,7 @@ public final class SettingsProvider extends ContentProvider {
         throw new IllegalArgumentException("Unsupported weather setting");
     }
     if (location != null) store.location(location);
-    for (String key : new String[] {"units", "days", "motion"})
+    for (String key : new String[] {"units", "days", "motion", "show_weather"})
       if (values.containsKey(key)) store.choice(key, values.getAsString(key));
     return values.size();
   }

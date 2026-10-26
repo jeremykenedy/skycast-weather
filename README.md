@@ -19,9 +19,9 @@ Show some love by [starring this repository on GitHub](https://github.com/jeremy
 
 Skycast Weather combines an explicitly selected city's current weather and forecast with a quiet flight through real clouds. The film is an ambient backdrop; it does not depict the selected city or its current conditions.
 
-This is an unreleased candidate. Native emulator previews have been reviewed; physical Fire TV checks, release and host integration remain open. No production APK is advertised yet.
+The first release candidate has passed native controls and normal idle activation on a physical Fire TV. Publication and host integration are being finalized; see the [verification record](docs/verification.md) for measured results and limits.
 
-<p align="center"><img src="art/screenshots/weather-london-cinematic-five-api34.png" alt="Actual native London five-day forecast over filmed sunset cloud flight" width="960"></p>
+<p align="center"><img src="art/screenshots/weather-london-five-physical-api28.png" alt="Physical Fire TV code 4 London five-day forecast over real filmed clouds" width="960"></p>
 
 ## Table of Contents
 
@@ -38,7 +38,7 @@ This is an unreleased candidate. Native emulator previews have been reviewed; ph
 | Feature | Description | Guide |
 | --- | --- | --- |
 | Current weather and forecast | Real Open-Meteo data for a city you choose. | [Content and privacy](docs/privacy.md) |
-| Filmed cloud flight | Bundled, silent footage with two playback speeds. | [Architecture](docs/architecture.md) |
+| Filmed cloud flight | Bundled, silent footage with two playback speeds and a clouds-only option. | [Architecture](docs/architecture.md) |
 | Forecast layout | Metric or imperial units and 1, 3, 5 or 7 days. | [Configuration](docs/configuration.md) |
 | Dated cache | Preserves forecast age and labels failed refreshes. | [Content and privacy](docs/privacy.md) |
 | Remote controls | Native city search, preview, settings and offline source credits. | [Configuration](docs/configuration.md) |
@@ -48,7 +48,7 @@ This is an unreleased candidate. Native emulator previews have been reviewed; ph
 
 - Android API 23 or newer with H.264 video decoding. Verified environments are listed below.
 - Internet access for weather and city searches; the cloud film is bundled locally.
-- An explicitly chosen location. No GPS permission or IP geolocation is used.
+- An explicitly chosen location for weather information. Clouds-only mode needs no location. No GPS permission or IP geolocation is used.
 - Noncommercial use of the configured free Open-Meteo endpoint, under its separate service terms.
 
 The app has no ads, analytics, tracking identifiers or background weather service. Weather requests disclose the chosen coordinates and network address to the provider. See [Privacy](docs/privacy.md).
@@ -68,7 +68,7 @@ Build requirements, signing and removal are documented in [Building](docs/buildi
 
 ## Quick Start
 
-Open Skycast Weather, search for a city, choose the intended result, then select Preview weather. After typing, Back hides the keyboard so the remote can reach Find. Choose metric or imperial units, a forecast range and Gentle or Flowing film motion.
+Open Skycast Weather, search for a city, choose the intended result, then select Preview weather. After typing, Back hides the keyboard so the remote can reach Find. Choose metric or imperial units, a forecast range and Gentle or Flowing film motion. Turn off Show weather information for moving clouds without text or scene weather requests.
 
 Forecasts show their valid time and age. Missing data stays unavailable; a cached forecast keeps its original timestamp. Clear saved location and forecast removes the private location/cache while retaining display preferences. The bundled cloud lighting is independent of the forecast.
 
@@ -77,10 +77,10 @@ Forecasts show their valid time and age. Missing data stays unavailable; a cache
 | Environment | Current evidence |
 | --- | --- |
 | Google TV API 34 emulator | Native 1920x1080 previews, all four forecast layouts, real HTTPS data, settings, source credits and Back. Moving film reviewed at normal speed. |
-| Physical Fire TV | Final candidate and actual idle Dream gate pending. |
+| Physical Fire TV API 28 | Code 4 actual controls, clouds-only normal idle Dream, real London layouts and clean presentation samples passed at 1920x1080. |
 | Other Android TV / Google TV | Not yet verified. |
 
-Emulator captures do not establish physical performance, native 4K output, thermal behavior or automatic idle activation. Exact evidence and limits are in [Verification](docs/verification.md).
+No native 4K, every-device performance or thermal/power result is claimed. Volunteers with other devices are invited to report their model, Android version and observed results. Exact evidence and limits are in [Verification](docs/verification.md).
 
 ## Documentation
 

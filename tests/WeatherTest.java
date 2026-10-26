@@ -111,7 +111,8 @@ public final class WeatherTest {
     check(
         WeatherOptions.fallback("units").equals("metric")
             && WeatherOptions.fallback("days").equals("5")
-            && WeatherOptions.fallback("motion").equals("gentle"),
+            && WeatherOptions.fallback("motion").equals("gentle")
+            && WeatherOptions.fallback("show_weather").equals("true"),
         "stable defaults");
     for (String unit : new String[] {"metric", "imperial"})
       check(WeatherOptions.valid("units", unit), "supported units");
@@ -119,6 +120,12 @@ public final class WeatherTest {
       check(WeatherOptions.valid("days", count), "bounded forecast ranges");
     for (String motion : new String[] {"gentle", "flowing"})
       check(WeatherOptions.valid("motion", motion), "supported animation rates");
+    for (String visible : new String[] {"true", "false"})
+      check(WeatherOptions.valid("show_weather", visible), "explicit overlay visibility");
+    for (String invalid : new String[] {"1", "0", "TRUE", "", null})
+      check(
+          !WeatherOptions.valid("show_weather", invalid),
+          "overlay visibility rejects ambiguous values");
     check(
         !WeatherOptions.valid("units", "kelvin") && !WeatherOptions.valid("units", null),
         "reject unsupported units");

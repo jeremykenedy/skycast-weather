@@ -11,7 +11,7 @@ if [[ "${1:-}" == "--unsigned" ]]; then UNSIGNED=true; fi
 KEYSTORE="${SKYCAST_WEATHER_KEYSTORE:-$HOME/.android/skycast-weather.jks}"
 KEYPASS="${SKYCAST_WEATHER_KEYPASS:-$HOME/.android/skycast-weather.pass}"
 VERSION_NAME="${VERSION_NAME:-1.0.0}"
-VERSION_CODE="${VERSION_CODE:-3}"
+VERSION_CODE="${VERSION_CODE:-4}"
 
 for tool in javac keytool openssl zip; do
   command -v "$tool" >/dev/null || { echo "Missing required tool: $tool" >&2; exit 1; }

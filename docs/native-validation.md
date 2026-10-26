@@ -1,6 +1,6 @@
 # Native validation
 
-The API34 cinematic preview gates and exact provenance are recorded in [Verification](verification.md). Those partial checks do not establish physical Fire TV behavior. Coordinate an exclusive current device lease and fresh baseline before any mutation. Do not reboot TVs or restart ADB.
+The current physical API28 and API34 cinematic gates and exact provenance are recorded in [Verification](verification.md). Read their exact scope and remaining limitations before extending validation. Coordinate an exclusive current device lease and fresh baseline before any mutation. Do not reboot TVs or restart ADB.
 
 1. Preserve five secure Dream/timer keys and the app's location/units/day/motion values. Install only the correctly signed package. Launch real settings and verify initial Preview focus and D-pad city search/results selection.
 2. Inspect the unconfigured scene: no guessed city, simulated current values or blank screen. Set an explicit public test location through city search or the documented provider, never through IP geolocation.
@@ -10,6 +10,6 @@ The API34 cinematic preview gates and exact provenance are recorded in [Verifica
 6. Use the supported host picker to select the actual Dream temporarily, wait the configured idle period and verify the bound component, rendered pixels and wake/Back path. Restore the exact original system selection/enabled/timers. Do not infer this from an app Preview.
 7. Restore app preferences, including clear_location=true if the initial app had no saved location. Read back all five secure keys and confirm unchanged; report any external change rather than overwriting it. Save source screenshots and derive the small in-app preview only from accepted actual native content.
 
-Settings host interface: content://com.jeremykenedy.skycastweather.settings/schema and /settings, key/value query rows. Updates accept units=metric|imperial, days=1|3|5|7 and motion=gentle|flowing. A location update supplies location_name, latitude and longitude together. To remove the saved city and forecast, send clear_location=true alone. Other paths/keys/values are rejected.
+Settings host interface: content://com.jeremykenedy.skycastweather.settings/schema and /settings, key/value query rows. Updates accept units=metric|imperial, days=1|3|5|7 motion=gentle|flowing and show_weather=true|false. A location update supplies location_name, latitude and longitude together. To remove the saved city and forecast, send clear_location=true alone. Other paths/keys/values are rejected.
 
 Physical automatic idle activation, Fire OS Back/Menu/Home behavior, sustained thermal/power/performance, actual target buffer sizes, installer device flow and ecosystem integration remain separate required gates.

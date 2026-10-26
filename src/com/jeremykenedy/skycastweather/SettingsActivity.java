@@ -9,6 +9,7 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -49,6 +50,18 @@ public final class SettingsActivity extends Activity {
     preview.setText("Preview weather");
     preview.setOnClickListener(v -> startActivity(new Intent(this, PreviewActivity.class)));
     content.addView(preview);
+    CheckBox showWeather = new CheckBox(this);
+    showWeather.setText("Show weather information");
+    showWeather.setChecked("true".equals(store.choice("show_weather")));
+    showWeather.setOnCheckedChangeListener(
+        (button, checked) -> store.choice("show_weather", Boolean.toString(checked)));
+    refreshSettings.add(() -> showWeather.setChecked("true".equals(store.choice("show_weather"))));
+    content.addView(showWeather);
+    TextView visibility = new TextView(this);
+    visibility.setText(
+        "Turn off to show only the moving clouds. All scene text is hidden and weather"
+            + " requests pause; your saved city and display choices stay unchanged.");
+    content.addView(visibility);
     location = new TextView(this);
     updateLocation();
     content.addView(location);

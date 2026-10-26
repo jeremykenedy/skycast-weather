@@ -1,6 +1,6 @@
 # Building and checks
 
-Use JDK 21, Android SDK platform 36 and build-tools 36.0.0, Python 3.10 or newer, curl, zip, OpenSSL and ShellCheck. ANDROID_HOME can select the SDK. The build script uses Java8 language/runtime API signatures plus the Android SDK API stubs, then D8 desugaring. Runtime requires API23 and H.264 decoding; Google TV API34 emulator behavior has been checked. Physical support remains pending.
+Use JDK 21, Android SDK platform 36 and build-tools 36.0.0, Python 3.10 or newer, curl, zip, OpenSSL and ShellCheck. ANDROID_HOME can select the SDK. The build script uses Java8 language/runtime API signatures plus the Android SDK API stubs, then D8 desugaring. Runtime requires API 23 and H.264 decoding. Physical Fire TV API 28 and Google TV API 34 emulator evidence is qualified in [Verification](verification.md); other devices remain unverified.
 
 Run:
 

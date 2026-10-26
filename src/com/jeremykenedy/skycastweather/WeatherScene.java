@@ -46,7 +46,10 @@ final class WeatherScene extends FrameLayout {
     speed = "flowing".equals(store.choice("motion")) ? 1 : .75f;
     snapshot = null;
     status = location == null ? "Location not selected" : "Loading forecast";
+    boolean showWeather = "true".equals(store.choice("show_weather"));
+    overlay.setVisibility(showWeather ? View.VISIBLE : View.GONE);
     sky.start(speed);
+    if (!showWeather) return;
     previous = SystemClock.uptimeMillis();
     handler.post(tick);
     if (location != null) load(true);

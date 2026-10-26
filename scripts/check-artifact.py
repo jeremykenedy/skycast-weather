@@ -13,7 +13,7 @@ aapt = sdk / "build-tools/36.0.0/aapt"
 apk = Path(sys.argv[1])
 badging = subprocess.check_output([str(aapt), "dump", "badging", str(apk)], text=True)
 if not re.search(
-    r"package: name='com\.jeremykenedy\.skycastweather' versionCode='3' versionName='1\.0\.0'",
+    r"package: name='com\.jeremykenedy\.skycastweather' versionCode='4' versionName='1\.0\.0'",
     badging,
 ):
     raise SystemExit("Unexpected package or version")
