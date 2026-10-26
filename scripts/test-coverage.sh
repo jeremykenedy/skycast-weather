@@ -23,8 +23,8 @@ for suite in WeatherTest WeatherClientTest; do
     -cp "$ROOT/build/host-classes:$ROOT/build/test-classes:$TOOLS/json-host.jar" "com.jeremykenedy.skycastweather.$suite"
 done
 # Android supplies org.json at runtime; the pinned host-only jar is not bundled.
-# Include explicit pure content/cache/options/text/volume/history production classes only.
-# Android storage, UI, lifecycle scheduling and GL wrappers require native verification.
+# Include explicit pure content/cache/options/text production classes only.
+# Android storage, UI, lifecycle scheduling and media wrappers require native verification.
 java -jar "$TOOLS/jacoco-cli.jar" report "$ROOT/build/weather.exec" \
   --classfiles "$ROOT/build/host-classes" --sourcefiles "$ROOT/src" \
   --xml "$ROOT/build/weather-coverage.xml" --html "$ROOT/build/weather-coverage"

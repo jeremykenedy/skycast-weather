@@ -7,7 +7,6 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Shader;
 import android.graphics.Typeface;
-import android.opengl.GLSurfaceView;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
@@ -18,8 +17,7 @@ import java.util.Locale;
 final class WeatherScene extends FrameLayout {
   private final Handler handler = new Handler(Looper.getMainLooper());
   private final WeatherStore store;
-  private final GLSurfaceView surface;
-  private final SkyRenderer sky = new SkyRenderer();
+  private final SkyFilmView sky;
   private final Overlay overlay;
   private WeatherLocation location;
   private WeatherSnapshot snapshot;
@@ -33,25 +31,11 @@ final class WeatherScene extends FrameLayout {
   WeatherScene(Context context) {
     super(context);
     store = new WeatherStore(context);
-    surface = new GLSurfaceView(context);
-    surface.setEGLContextClientVersion(2);
-    surface.setRenderer(sky);
-    surface.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
-    addView(surface, new LayoutParams(-1, -1));
+    sky = new SkyFilmView(context);
+    addView(sky, new LayoutParams(-1, -1));
     overlay = new Overlay(context);
     addView(overlay, new LayoutParams(-1, -1));
     setBackgroundColor(Color.rgb(9, 20, 36));
-  }
-
-  @Override
-  protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-    super.onSizeChanged(w, h, oldw, oldh);
-    // The weather overlay stays at native resolution; clouds use a bounded render surface.
-    if (w > 0 && h > 0)
-      surface
-          .getHolder()
-          .setFixedSize(
-              Math.min(w, 960), Math.max(1, Math.round(h * Math.min(w, 960) / (float) w)));
   }
 
   void start() {
@@ -59,13 +43,13 @@ final class WeatherScene extends FrameLayout {
     running = true;
     location = store.location();
     imperial = "imperial".equals(store.choice("units"));
-    speed = "flowing".equals(store.choice("motion")) ? 1.8f : 1;
+    speed = "flowing".equals(store.choice("motion")) ? 1 : .75f;
     snapshot = null;
     status = location == null ? "Location not selected" : "Loading forecast";
-    sky.daylight = 1;
-    sky.cloudCover = .5f;
-    sky.rain = 0;
-    surface.onResume();
+    boolean showWeather = "true".equals(store.choice("show_weather"));
+    overlay.setVisibility(showWeather ? View.VISIBLE : View.GONE);
+    sky.start(speed);
+    if (!showWeather) return;
     previous = SystemClock.uptimeMillis();
     handler.post(tick);
     if (location != null) load(true);
@@ -78,7 +62,7 @@ final class WeatherScene extends FrameLayout {
     handler.removeCallbacksAndMessages(null);
     WeatherClient request = client;
     if (request != null) request.close();
-    surface.onPause();
+    sky.stop();
   }
 
   @Override
@@ -95,8 +79,6 @@ final class WeatherScene extends FrameLayout {
           long now = SystemClock.uptimeMillis();
           elapsed += Math.min(.1f, (now - previous) / 1000f) * speed;
           previous = now;
-          sky.elapsed = elapsed;
-          surface.requestRender();
           overlay.invalidate();
           handler.postDelayed(this, 33);
         }
@@ -173,9 +155,6 @@ final class WeatherScene extends FrameLayout {
   private void apply(WeatherSnapshot fresh, String message) {
     snapshot = fresh;
     status = message;
-    sky.daylight = fresh.daylight ? 1 : 0;
-    sky.cloudCover = fresh.code == 0 ? .16f : fresh.code == 1 ? .3f : fresh.code == 2 ? .56f : .92f;
-    sky.rain = fresh.code >= 51 ? .8f : 0;
   }
 
   private final class Overlay extends View {

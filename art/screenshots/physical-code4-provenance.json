@@ -1,0 +1,78 @@
+{
+  "captures": [
+    {
+      "image": "weather-clouds-only-physical-api28.png",
+      "sha256": "8ba5c5e474792be5716b56b0e73b6fbc5580008e9dcf2f461ac1866649b81469",
+      "version": "1.0.0",
+      "androidVersionCode": 4,
+      "apkSha256": "b8680ebc7314e8687281e5d405aa84d1b0f38d1f6505193f652b96fc9cf0e7e0",
+      "platform": "Physical Fire TV API 28",
+      "resolution": "1920x1080",
+      "captureDate": "2026-10-26",
+      "scene": "Actual normal non-test Dream",
+      "modification": "None"
+    },
+    {
+      "image": "weather-settings-physical-api28.png",
+      "sha256": "8d8880a7602727079184141ca894ec4e19ea91c4e6305cf1875b79256ccbe0db",
+      "version": "1.0.0",
+      "androidVersionCode": 4,
+      "apkSha256": "b8680ebc7314e8687281e5d405aa84d1b0f38d1f6505193f652b96fc9cf0e7e0",
+      "platform": "Physical Fire TV API 28",
+      "resolution": "1920x1080",
+      "captureDate": "2026-10-26",
+      "scene": "Native settings or Preview",
+      "modification": "None"
+    },
+    {
+      "image": "weather-london-one-physical-api28.png",
+      "sha256": "b6caef6fbd98f71b5b154e4e0778cff81fc34b1cd6be3c54af7290c7ee364406",
+      "version": "1.0.0",
+      "androidVersionCode": 4,
+      "apkSha256": "b8680ebc7314e8687281e5d405aa84d1b0f38d1f6505193f652b96fc9cf0e7e0",
+      "platform": "Physical Fire TV API 28",
+      "resolution": "1920x1080",
+      "captureDate": "2026-10-26",
+      "scene": "Native settings or Preview",
+      "modification": "None"
+    },
+    {
+      "image": "weather-london-three-physical-api28.png",
+      "sha256": "c468b1ab3b9666f69b7b41c5c63f7694ed377d348649b86a7599230e28960551",
+      "version": "1.0.0",
+      "androidVersionCode": 4,
+      "apkSha256": "b8680ebc7314e8687281e5d405aa84d1b0f38d1f6505193f652b96fc9cf0e7e0",
+      "platform": "Physical Fire TV API 28",
+      "resolution": "1920x1080",
+      "captureDate": "2026-10-26",
+      "scene": "Native settings or Preview",
+      "modification": "None"
+    },
+    {
+      "image": "weather-london-five-physical-api28.png",
+      "sha256": "c0618efbf28a6e892db08b0401a8a9beac695e73236ed3839b342bf5c02165c8",
+      "version": "1.0.0",
+      "androidVersionCode": 4,
+      "apkSha256": "b8680ebc7314e8687281e5d405aa84d1b0f38d1f6505193f652b96fc9cf0e7e0",
+      "platform": "Physical Fire TV API 28",
+      "resolution": "1920x1080",
+      "captureDate": "2026-10-26",
+      "scene": "Native settings or Preview",
+      "modification": "None"
+    },
+    {
+      "image": "weather-london-seven-physical-api28.png",
+      "sha256": "1ede9d64c6cb8b5c1bf3a66ecc6c0e9e4a007b7ba5e2b67a477c0a770ea541bf",
+      "version": "1.0.0",
+      "androidVersionCode": 4,
+      "apkSha256": "b8680ebc7314e8687281e5d405aa84d1b0f38d1f6505193f652b96fc9cf0e7e0",
+      "platform": "Physical Fire TV API 28",
+      "resolution": "1920x1080",
+      "captureDate": "2026-10-26",
+      "scene": "Native settings or Preview",
+      "modification": "None"
+    }
+  ],
+  "safeExample": "London is explicitly selected public sample data; it is not the device owner location.",
+  "historicalImages": "cinematic-capture-provenance.json describes code2 API34 captures, not current code4."
+}
