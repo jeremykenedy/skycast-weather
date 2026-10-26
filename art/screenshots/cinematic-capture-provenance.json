@@ -1,0 +1,78 @@
+{
+  "captures": [
+    {
+      "image": "weather-london-cinematic-five-api34.png",
+      "source": "first-native3/london-five-metric.png",
+      "sha256": "d09d443a75cb856109f536c3fbf4ac1667f0dc72c060d63837e368b086481ed0",
+      "device": "Google TV API34 emulator-5580",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "artifactSha256": "3b093626635e6ce2db23defeb2025355820cf072910368a1f90d29af975783c3",
+      "context": "Actual native Preview or Settings; explicit public London example, not owner location; untouched PNG."
+    },
+    {
+      "image": "weather-london-cinematic-seven-api34.png",
+      "source": "first-native3/london-seven-imperial.png",
+      "sha256": "0e1df5af924e924cd1dc586eee5c8b0763170a934f0cd616b4ac050c87a3e172",
+      "device": "Google TV API34 emulator-5580",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "artifactSha256": "3b093626635e6ce2db23defeb2025355820cf072910368a1f90d29af975783c3",
+      "context": "Actual native Preview or Settings; explicit public London example, not owner location; untouched PNG."
+    },
+    {
+      "image": "weather-london-cinematic-one-api34.png",
+      "source": "first-native4/london-one-metric.png",
+      "sha256": "8134a97eb1545b9cc90c7587db06044a61c4eea9f944727616bc7cc30bdd083e",
+      "device": "Google TV API34 emulator-5580",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "artifactSha256": "3b093626635e6ce2db23defeb2025355820cf072910368a1f90d29af975783c3",
+      "context": "Actual native Preview or Settings; explicit public London example, not owner location; untouched PNG."
+    },
+    {
+      "image": "weather-london-cinematic-three-api34.png",
+      "source": "first-native4/london-three-metric.png",
+      "sha256": "ef991a40366c19120a5c024d31f290c351b6ef157e2c7e5b6c1e2716ff860715",
+      "device": "Google TV API34 emulator-5580",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "artifactSha256": "3b093626635e6ce2db23defeb2025355820cf072910368a1f90d29af975783c3",
+      "context": "Actual native Preview or Settings; explicit public London example, not owner location; untouched PNG."
+    },
+    {
+      "image": "weather-settings-cinematic-api34.png",
+      "source": "first-native4/settings-current.png",
+      "sha256": "36f6ca0eef0afbdb126f5e9162a35946fce14e689275cbd333b5663a9088f71e",
+      "device": "Google TV API34 emulator-5580",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "artifactSha256": "3b093626635e6ce2db23defeb2025355820cf072910368a1f90d29af975783c3",
+      "context": "Actual native Preview or Settings; explicit public London example, not owner location; untouched PNG."
+    },
+    {
+      "image": "weather-credits-cinematic-api34.png",
+      "source": "credits-native5/credits-current.png",
+      "sha256": "2c1c1cd9ca56f063a7e6b4402e236e56f8a6e5cae218d40ed4ff1b4334e01d8f",
+      "device": "Google TV API34 emulator-5580",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "artifactSha256": "3b093626635e6ce2db23defeb2025355820cf072910368a1f90d29af975783c3",
+      "context": "Actual native Preview or Settings; explicit public London example, not owner location; untouched PNG."
+    }
+  ],
+  "preview": "Plain resized actual London five-day native Preview; no scene retouching.",
+  "limits": "Native Preview does not establish physical TV, normal Dream, content decoder FPS, sustained thermal or owner visual acceptance."
+}

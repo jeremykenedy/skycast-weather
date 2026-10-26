@@ -8,7 +8,7 @@
 | Cloud motion | Gentle; Flowing | Gentle |
 | Clear saved location and forecast | Removes private coordinates and cached forecast; preserves display choices | User action |
 
-Weather content, units and location are never randomized. Flowing changes the cloud and text-motion rate, not timestamps or weather values. The default scene continuously moves, including when no city has been selected.
+Weather content, units and location are never randomized. Gentle plays the bundled film at0.75x; Flowing uses1x. Both also change the slow text-motion rate, never timestamps or weather values. The bundled background also plays before a city is selected. Its recorded cloud cover and lighting do not change to match the forecast.
 
 Choose a city in Settings. D-pad reaches Preview, Clear, city text entry and Find. The keyboard can use its Search action; after typing, Back hides it so D-pad can reach Find. The result dialog distinguishes same-name places by region and country. Selection persists locally. Back leaves Preview, Home returns to the launcher, and the supported platform screensaver picker controls actual selection.
 

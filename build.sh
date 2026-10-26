@@ -11,7 +11,7 @@ if [[ "${1:-}" == "--unsigned" ]]; then UNSIGNED=true; fi
 KEYSTORE="${SKYCAST_WEATHER_KEYSTORE:-$HOME/.android/skycast-weather.jks}"
 KEYPASS="${SKYCAST_WEATHER_KEYPASS:-$HOME/.android/skycast-weather.pass}"
 VERSION_NAME="${VERSION_NAME:-1.0.0}"
-VERSION_CODE="${VERSION_CODE:-1}"
+VERSION_CODE="${VERSION_CODE:-3}"
 
 for tool in javac keytool openssl zip; do
   command -v "$tool" >/dev/null || { echo "Missing required tool: $tool" >&2; exit 1; }
@@ -39,7 +39,7 @@ fi
 "$TOOLS/aapt2" link -o "$OUT/unsigned.apk" -I "$ANDROID_JAR" \
   --manifest "$ROOT/AndroidManifest.xml" --min-sdk-version 23 --target-sdk-version 36 \
   --version-code "$VERSION_CODE" --version-name "$VERSION_NAME" \
-  --java "$OUT/generated" "$OUT/res.zip"
+  --java "$OUT/generated" -A "$ROOT/assets" "$OUT/res.zip"
 find "$ROOT/src" "$OUT/generated" -name '*.java' > "$OUT/sources.txt"
 javac -nowarn --release 8 -classpath "$ANDROID_JAR" \
   -d "$OUT/classes" @"$OUT/sources.txt"

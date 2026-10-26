@@ -41,8 +41,9 @@ public final class SettingsActivity extends Activity {
     content.addView(title);
     TextView intro = new TextView(this);
     intro.setText(
-        "Live model forecasts and a continuously moving sky. Choose a city; no device location"
-            + " permission is used.");
+        "Live model forecasts over real cloud-flight footage. The film is an ambient backdrop, not"
+            + " a view of your city's weather. Choose a city; no device location permission is"
+            + " used.");
     content.addView(intro);
     Button preview = new Button(this);
     preview.setText("Preview weather");
@@ -102,10 +103,10 @@ public final class SettingsActivity extends Activity {
         new String[] {"1 day", "3 days", "5 days", "7 days"});
     choice(
         content,
-        "Cloud motion",
+        "Cloud film speed",
         "motion",
         new String[] {"gentle", "flowing"},
-        new String[] {"Gentle", "Flowing"});
+        new String[] {"Gentle (0.75x)", "Flowing (1x)"});
     TextView notice = new TextView(this);
     notice.setText(
         "Weather and city search use Open-Meteo. Requests send the selected coordinates or search"
@@ -130,6 +131,12 @@ public final class SettingsActivity extends Activity {
                         + " dates.\n\n"
                         + "Data is model derived. Provider terms:"
                         + " https://open-meteo.com/en/terms\n\n"
+                        + "Cloud film: anotherview, breathtaking sunset and cloudsurfing lake"
+                        + " Lucerne. https://www.youtube.com/watch?v=kKPvF0rwqHA\n"
+                        + "CC BY 3.0: https://creativecommons.org/licenses/by/3.0/\n"
+                        + "Changes: audio removed; source 213.5-248.7 seconds edited to a 34-second"
+                        + " loop with a 1.2-second dissolve, encoded at 1080p25 and 720p25. Ambient"
+                        + " footage does not represent the selected city's weather.\n\n"
                         + "Skycast Weather source code: Apache License 2.0. Copyright 2026 Jeremy"
                         + " Kenedy.\n"
                         + "https://github.com/jeremykenedy/skycast-weather\n\n"

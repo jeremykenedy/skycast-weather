@@ -13,8 +13,6 @@ javac -cp "$TOOLS/json-host.jar" -d "$ROOT/build/host-classes" \
   "$ROOT/src/com/jeremykenedy/skycastweather/WeatherOptions.java" \
   "$ROOT/src/com/jeremykenedy/skycastweather/WeatherCache.java" \
   "$ROOT/src/com/jeremykenedy/skycastweather/WeatherText.java" \
-  "$ROOT/src/com/jeremykenedy/skycastweather/SkyNoise.java" \
-  "$ROOT/src/com/jeremykenedy/skycastweather/SkyHistory.java" \
   "$ROOT/src/com/jeremykenedy/skycastweather/WeatherSnapshot.java" \
   "$ROOT/src/com/jeremykenedy/skycastweather/WeatherLocation.java" \
   "$ROOT/src/com/jeremykenedy/skycastweather/WeatherClient.java"
