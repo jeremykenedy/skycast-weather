@@ -2,7 +2,7 @@
 
 ## Current signed candidate
 
-Version 1.0.0 / code 4 is SHA-256 `b8680ebc7314e8687281e5d405aa84d1b0f38d1f6505193f652b96fc9cf0e7e0`,39,552,020 bytes, with preserved production certificate `f40d38dbe5dad4d4f05e51f3fb9fee20227762252ed31fd53d082879d08d9461`. It uses real bundled cloud-flight footage, not the historical volumetric scene. No published release or completed host integration is claimed yet.
+Version 1.0.0 / code 4 is SHA-256 `b8680ebc7314e8687281e5d405aa84d1b0f38d1f6505193f652b96fc9cf0e7e0`,39,552,020 bytes, with preserved production certificate `f40d38dbe5dad4d4f05e51f3fb9fee20227762252ed31fd53d082879d08d9461`. It uses real bundled cloud-flight footage, not the historical volumetric scene. Public artifact verification and host delivery are tracked separately from these native checks.
 
 The [current six-image gallery](gallery.md) contains untouched code 4 native physical API 28 captures at 1920x1080 from2026-10-26. Its [provenance](../art/screenshots/physical-code4-provenance.json) records candidate and image hashes. London is public sample data, not the owner's location.
 

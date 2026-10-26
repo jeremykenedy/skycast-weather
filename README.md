@@ -19,7 +19,7 @@ Show some love by [starring this repository on GitHub](https://github.com/jeremy
 
 Skycast Weather combines an explicitly selected city's current weather and forecast with a quiet flight through real clouds. The film is an ambient backdrop; it does not depict the selected city or its current conditions.
 
-The first release candidate has passed native controls and normal idle activation on a physical Fire TV. Publication and host integration are being finalized; see the [verification record](docs/verification.md) for measured results and limits.
+Version 1.0.0 has passed native controls and normal idle activation on a physical Fire TV. See the [verification record](docs/verification.md) for measured results, limitations and host delivery status.
 
 <p align="center"><img src="art/screenshots/weather-london-five-physical-api28.png" alt="Physical Fire TV code 4 London five-day forecast over real filmed clouds" width="960"></p>
 
@@ -55,16 +55,16 @@ The app has no ads, analytics, tracking identifiers or background weather servic
 
 ## Installation
 
-Before the first release, build and install your own signed APK:
+Download the [signed APK](https://github.com/jeremykenedy/skycast-weather/releases/download/v1.0.0/skycast-weather.apk) and [SHA-256 checksum](https://github.com/jeremykenedy/skycast-weather/releases/download/v1.0.0/skycast-weather.apk.sha256) from [version 1.0.0](https://github.com/jeremykenedy/skycast-weather/releases/tag/v1.0.0). Verify the checksum before installing:
 
 ~~~sh
-bash build.sh
-python3 install.py --serial TV_IP:5555 --apk build/skycast-weather.apk
+shasum -a 256 -c skycast-weather.apk.sha256
+python3 install.py --serial TV_IP:5555 --apk skycast-weather.apk
 ~~~
 
 The installer asks before changing the selected device. An update with the same package and signer preserves app preferences. It does not change the selected screensaver, timers or security-update settings. Choose Skycast Weather through the supported screensaver picker.
 
-Build requirements, signing and removal are documented in [Building](docs/building.md). [Fire TV Toolkit](https://github.com/jeremykenedy/fire-tv-toolkit) and [Fire TV UI](https://github.com/jeremykenedy/fire-tv-ui) registration will follow the verified public release; this source candidate is not a downloadable catalog entry.
+Build requirements, signing and removal are documented in [Building](docs/building.md). [Fire TV Toolkit](https://github.com/jeremykenedy/fire-tv-toolkit) and [Fire TV UI](https://github.com/jeremykenedy/fire-tv-ui) registration will follow the verified public release; do not assume a host catalog is updated until its own release includes this saver.
 
 ## Quick Start
 
